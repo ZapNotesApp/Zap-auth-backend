@@ -39,8 +39,13 @@ app.use((req, res, next) => {
     next();
 });
 
+// Test route
+app.get('/', (req, res) => {
+    res.json({ message: 'Server is running' });
+});
+
 // Auth routes
-app.post('/api/auth/register', async (req, res) => {
+app.post('/auth/register', async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -90,7 +95,7 @@ app.post('/api/auth/register', async (req, res) => {
     }
 });
 
-app.post('/api/auth/login', async (req, res) => {
+app.post('/auth/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
@@ -136,13 +141,7 @@ app.post('/api/auth/login', async (req, res) => {
 const PORT = 3001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
-});
-
-// Error handling
-process.on('uncaughtException', (error) => {
-    console.error('Uncaught Exception:', error);
-});
-
-process.on('unhandledRejection', (error) => {
-    console.error('Unhandled Rejection:', error);
+    console.log(`Test server at: http://localhost:${PORT}`);
+    console.log(`Register endpoint: http://localhost:${PORT}/auth/register`);
+    console.log(`Login endpoint: http://localhost:${PORT}/auth/login`);
 });
